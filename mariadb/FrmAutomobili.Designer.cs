@@ -29,17 +29,6 @@
         private void InitializeComponent()
         {
             dgvAutomobili = new DataGridView();
-            dgRegistracija = new DataGridViewTextBoxColumn();
-            dgIdProizvodjac = new DataGridViewTextBoxColumn();
-            dgModel = new DataGridViewTextBoxColumn();
-            dgIdGoriva = new DataGridViewTextBoxColumn();
-            dgCcm = new DataGridViewTextBoxColumn();
-            dgkW = new DataGridViewTextBoxColumn();
-            dgPotrosnja = new DataGridViewTextBoxColumn();
-            dgGodinaProizvodnje = new DataGridViewTextBoxColumn();
-            dgDatumRegistracije = new DataGridViewTextBoxColumn();
-            dgKilometriNaRegistraciji = new DataGridViewTextBoxColumn();
-            dgDostupan = new DataGridViewTextBoxColumn();
             label1 = new Label();
             txtRegistracija = new TextBox();
             label2 = new Label();
@@ -65,6 +54,18 @@
             btnDelete = new Button();
             btnSave = new Button();
             backgroundWorker1 = new System.ComponentModel.BackgroundWorker();
+            dgIdAutomobila = new DataGridViewTextBoxColumn();
+            dgRegistracija = new DataGridViewTextBoxColumn();
+            dgIdProizvodjac = new DataGridViewTextBoxColumn();
+            dgModel = new DataGridViewTextBoxColumn();
+            dgIdGoriva = new DataGridViewTextBoxColumn();
+            dgCcm = new DataGridViewTextBoxColumn();
+            dgkW = new DataGridViewTextBoxColumn();
+            dgPotrosnja = new DataGridViewTextBoxColumn();
+            dgGodinaProizvodnje = new DataGridViewTextBoxColumn();
+            dgDatumRegistracije = new DataGridViewTextBoxColumn();
+            dgKilometriNaRegistraciji = new DataGridViewTextBoxColumn();
+            dgDostupan = new DataGridViewTextBoxColumn();
             ((System.ComponentModel.ISupportInitialize)dgvAutomobili).BeginInit();
             SuspendLayout();
             // 
@@ -72,90 +73,13 @@
             // 
             dgvAutomobili.AllowUserToDeleteRows = false;
             dgvAutomobili.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dgvAutomobili.Columns.AddRange(new DataGridViewColumn[] { dgRegistracija, dgIdProizvodjac, dgModel, dgIdGoriva, dgCcm, dgkW, dgPotrosnja, dgGodinaProizvodnje, dgDatumRegistracije, dgKilometriNaRegistraciji, dgDostupan });
+            dgvAutomobili.Columns.AddRange(new DataGridViewColumn[] { dgIdAutomobila, dgRegistracija, dgIdProizvodjac, dgModel, dgIdGoriva, dgCcm, dgkW, dgPotrosnja, dgGodinaProizvodnje, dgDatumRegistracije, dgKilometriNaRegistraciji, dgDostupan });
             dgvAutomobili.Location = new Point(12, 12);
             dgvAutomobili.Name = "dgvAutomobili";
             dgvAutomobili.ReadOnly = true;
             dgvAutomobili.Size = new Size(760, 271);
             dgvAutomobili.TabIndex = 14;
             dgvAutomobili.DoubleClick += dgvAutomobili_DoubleClick;
-            // 
-            // dgRegistracija
-            // 
-            dgRegistracija.DataPropertyName = "Registracija";
-            dgRegistracija.HeaderText = "Registracija";
-            dgRegistracija.Name = "dgRegistracija";
-            dgRegistracija.ReadOnly = true;
-            // 
-            // dgIdProizvodjac
-            // 
-            dgIdProizvodjac.DataPropertyName = "IdProizvodjac";
-            dgIdProizvodjac.HeaderText = "Proizvođač";
-            dgIdProizvodjac.Name = "dgIdProizvodjac";
-            dgIdProizvodjac.ReadOnly = true;
-            // 
-            // dgModel
-            // 
-            dgModel.DataPropertyName = "Model";
-            dgModel.HeaderText = "Model";
-            dgModel.Name = "dgModel";
-            dgModel.ReadOnly = true;
-            // 
-            // dgIdGoriva
-            // 
-            dgIdGoriva.DataPropertyName = "IdGoriva";
-            dgIdGoriva.HeaderText = "Gorivo";
-            dgIdGoriva.Name = "dgIdGoriva";
-            dgIdGoriva.ReadOnly = true;
-            // 
-            // dgCcm
-            // 
-            dgCcm.DataPropertyName = "Ccm";
-            dgCcm.HeaderText = "cm3";
-            dgCcm.Name = "dgCcm";
-            dgCcm.ReadOnly = true;
-            // 
-            // dgkW
-            // 
-            dgkW.DataPropertyName = "kW";
-            dgkW.HeaderText = "kW";
-            dgkW.Name = "dgkW";
-            dgkW.ReadOnly = true;
-            // 
-            // dgPotrosnja
-            // 
-            dgPotrosnja.DataPropertyName = "Potrosnja";
-            dgPotrosnja.HeaderText = "Potrošnja";
-            dgPotrosnja.Name = "dgPotrosnja";
-            dgPotrosnja.ReadOnly = true;
-            // 
-            // dgGodinaProizvodnje
-            // 
-            dgGodinaProizvodnje.DataPropertyName = "GodinaProizvodnje";
-            dgGodinaProizvodnje.HeaderText = "Proizveden";
-            dgGodinaProizvodnje.Name = "dgGodinaProizvodnje";
-            dgGodinaProizvodnje.ReadOnly = true;
-            // 
-            // dgDatumRegistracije
-            // 
-            dgDatumRegistracije.DataPropertyName = "DatumRegistracije";
-            dgDatumRegistracije.HeaderText = "Registriran";
-            dgDatumRegistracije.Name = "dgDatumRegistracije";
-            dgDatumRegistracije.ReadOnly = true;
-            // 
-            // dgKilometriNaRegistraciji
-            // 
-            dgKilometriNaRegistraciji.DataPropertyName = "KilometriNaRegistraciji";
-            dgKilometriNaRegistraciji.HeaderText = "Kilometara";
-            dgKilometriNaRegistraciji.Name = "dgKilometriNaRegistraciji";
-            dgKilometriNaRegistraciji.ReadOnly = true;
-            // 
-            // dgDostupan
-            // 
-            dgDostupan.DataPropertyName = "Dostupan";
-            dgDostupan.HeaderText = "Dostupan";
-            dgDostupan.Name = "dgDostupan";
-            dgDostupan.ReadOnly = true;
             // 
             // label1
             // 
@@ -360,6 +284,91 @@
             btnSave.UseVisualStyleBackColor = true;
             btnSave.Click += btnSave_Click;
             // 
+            // dgIdAutomobila
+            // 
+            dgIdAutomobila.DataPropertyName = "IdAutomobila";
+            dgIdAutomobila.HeaderText = "Id Automobila";
+            dgIdAutomobila.Name = "dgIdAutomobila";
+            dgIdAutomobila.ReadOnly = true;
+            dgIdAutomobila.Visible = false;
+            // 
+            // dgRegistracija
+            // 
+            dgRegistracija.DataPropertyName = "Registracija";
+            dgRegistracija.HeaderText = "Registracija";
+            dgRegistracija.Name = "dgRegistracija";
+            dgRegistracija.ReadOnly = true;
+            // 
+            // dgIdProizvodjac
+            // 
+            dgIdProizvodjac.DataPropertyName = "IdProizvodjac";
+            dgIdProizvodjac.HeaderText = "Proizvođač";
+            dgIdProizvodjac.Name = "dgIdProizvodjac";
+            dgIdProizvodjac.ReadOnly = true;
+            // 
+            // dgModel
+            // 
+            dgModel.DataPropertyName = "Model";
+            dgModel.HeaderText = "Model";
+            dgModel.Name = "dgModel";
+            dgModel.ReadOnly = true;
+            // 
+            // dgIdGoriva
+            // 
+            dgIdGoriva.DataPropertyName = "IdGoriva";
+            dgIdGoriva.HeaderText = "Gorivo";
+            dgIdGoriva.Name = "dgIdGoriva";
+            dgIdGoriva.ReadOnly = true;
+            // 
+            // dgCcm
+            // 
+            dgCcm.DataPropertyName = "Ccm";
+            dgCcm.HeaderText = "cm3";
+            dgCcm.Name = "dgCcm";
+            dgCcm.ReadOnly = true;
+            // 
+            // dgkW
+            // 
+            dgkW.DataPropertyName = "kW";
+            dgkW.HeaderText = "kW";
+            dgkW.Name = "dgkW";
+            dgkW.ReadOnly = true;
+            // 
+            // dgPotrosnja
+            // 
+            dgPotrosnja.DataPropertyName = "Potrosnja";
+            dgPotrosnja.HeaderText = "Potrošnja";
+            dgPotrosnja.Name = "dgPotrosnja";
+            dgPotrosnja.ReadOnly = true;
+            // 
+            // dgGodinaProizvodnje
+            // 
+            dgGodinaProizvodnje.DataPropertyName = "GodinaProizvodnje";
+            dgGodinaProizvodnje.HeaderText = "Proizveden";
+            dgGodinaProizvodnje.Name = "dgGodinaProizvodnje";
+            dgGodinaProizvodnje.ReadOnly = true;
+            // 
+            // dgDatumRegistracije
+            // 
+            dgDatumRegistracije.DataPropertyName = "DatumRegistracije";
+            dgDatumRegistracije.HeaderText = "Registriran";
+            dgDatumRegistracije.Name = "dgDatumRegistracije";
+            dgDatumRegistracije.ReadOnly = true;
+            // 
+            // dgKilometriNaRegistraciji
+            // 
+            dgKilometriNaRegistraciji.DataPropertyName = "KilometriNaRegistraciji";
+            dgKilometriNaRegistraciji.HeaderText = "Kilometara";
+            dgKilometriNaRegistraciji.Name = "dgKilometriNaRegistraciji";
+            dgKilometriNaRegistraciji.ReadOnly = true;
+            // 
+            // dgDostupan
+            // 
+            dgDostupan.DataPropertyName = "Dostupan";
+            dgDostupan.HeaderText = "Dostupan";
+            dgDostupan.Name = "dgDostupan";
+            dgDostupan.ReadOnly = true;
+            // 
             // FrmAutomobili
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
@@ -427,6 +436,7 @@
         private Button btnDelete;
         private Button btnSave;
         private System.ComponentModel.BackgroundWorker backgroundWorker1;
+        private DataGridViewTextBoxColumn dgIdAutomobila;
         private DataGridViewTextBoxColumn dgRegistracija;
         private DataGridViewTextBoxColumn dgIdProizvodjac;
         private DataGridViewTextBoxColumn dgModel;
