@@ -12,8 +12,8 @@ using mariadb.Data;
 namespace mariadb.Migrations
 {
     [DbContext(typeof(AutoparkDbContext))]
-    [Migration("20250711125557_Migracija")]
-    partial class Migracija
+    [Migration("20250711140146_InicijalnaMigracija")]
+    partial class InicijalnaMigracija
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -39,7 +39,7 @@ namespace mariadb.Migrations
                     b.Property<bool>("Dostupan")
                         .HasColumnType("tinyint(1)");
 
-                    b.Property<int?>("GodinaProizvodnje")
+                    b.Property<int>("GodinaProizvodnje")
                         .HasColumnType("int");
 
                     b.Property<int>("IdGoriva")

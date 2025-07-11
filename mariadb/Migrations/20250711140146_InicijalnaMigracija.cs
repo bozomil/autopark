@@ -7,7 +7,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace mariadb.Migrations
 {
     /// <inheritdoc />
-    public partial class Migracija : Migration
+    public partial class InicijalnaMigracija : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -100,7 +100,7 @@ namespace mariadb.Migrations
                     DatumRegistracije = table.Column<DateTime>(type: "date", nullable: false),
                     Model = table.Column<string>(type: "varchar(100)", maxLength: 100, nullable: false)
                         .Annotation("MySql:CharSet", "utf8mb4"),
-                    GodinaProizvodnje = table.Column<int>(type: "int", nullable: true),
+                    GodinaProizvodnje = table.Column<int>(type: "int", nullable: false),
                     ccm = table.Column<int>(type: "int", nullable: true),
                     kW = table.Column<int>(type: "int", nullable: true),
                     Potrosnja = table.Column<decimal>(type: "decimal(4,2)", nullable: true),

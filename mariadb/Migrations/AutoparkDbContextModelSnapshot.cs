@@ -36,7 +36,7 @@ namespace mariadb.Migrations
                     b.Property<bool>("Dostupan")
                         .HasColumnType("tinyint(1)");
 
-                    b.Property<int?>("GodinaProizvodnje")
+                    b.Property<int>("GodinaProizvodnje")
                         .HasColumnType("int");
 
                     b.Property<int>("IdGoriva")

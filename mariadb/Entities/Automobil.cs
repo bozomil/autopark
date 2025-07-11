@@ -31,7 +31,7 @@ namespace mariadb.Entities
         [MaxLength(100)]
         public string Model { get; set; } = string.Empty;
 
-        public int? GodinaProizvodnje { get; set; }
+        public int GodinaProizvodnje { get; set; }
 
         public int? ccm { get; set; }
 

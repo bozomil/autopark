@@ -28,9 +28,6 @@ namespace mariadb
             txtIdGoriva.Text = idGoriva.ToString();
         }
 
-        // polje u formu za praćenje originalne registracije
-        private string originalnaRegistracija = ""; // ili private string? originalnaRegistracija = null;
-
         // Konstruktor
         public FrmAutomobili()
         {
@@ -59,114 +56,50 @@ namespace mariadb
         void ClearForm()
         {
             txtRegistracija.Text = txtIdProizvodjac.Text = txtIdGoriva.Text = txtKilometriNaRegistraciji.Text = txtModel.Text = txtCcm.Text = txtKw.Text = txtPotrosnja.Text = "";
+            dtpDatumRegistracije.Value = DateTime.Today;
+            int godina = DateTime.Today.Year;
+            dtpGodinaProizvodnje.Value = new DateTime(godina, 1, 1);
             cbDostupan.Checked = false;
             btnSave.Text = "Spremi";
             btnDelete.Enabled = false;
-            ent.Registracija = "";
+            ent = new Automobil();
         }
 
         private void btnSave_Click(object sender, EventArgs e)
         {
+            // Ažuriranje podataka
+            ent.Registracija = txtRegistracija.Text.Trim();
+            ent.IdProizvodjac = int.TryParse(txtIdProizvodjac.Text, out int idProizvodjac) ? idProizvodjac : 0;
+            ent.IdGoriva = int.TryParse(txtIdGoriva.Text, out int idGoriva) ? idGoriva : 0;
+            ent.DatumRegistracije = dtpDatumRegistracije.Value.Date;
+            ent.Model = txtModel.Text.Trim();
+            ent.GodinaProizvodnje = dtpGodinaProizvodnje.Value.Year;
+            ent.ccm = !string.IsNullOrWhiteSpace(txtCcm.Text) ? short.Parse(txtCcm.Text.Trim()) : (short?)null;
+            ent.kW = !string.IsNullOrWhiteSpace(txtKw.Text) ? short.Parse(txtKw.Text.Trim()) : (short?)null;
+            ent.Potrosnja = !string.IsNullOrWhiteSpace(txtPotrosnja.Text) ? decimal.Parse(txtPotrosnja.Text.Trim()) : (decimal?)null;
+            ent.Dostupan = cbDostupan.Checked;
+            ent.KilometriNaRegistraciji = decimal.TryParse(txtKilometriNaRegistraciji.Text.Trim(), out decimal km) ? km : 0;
+
             if (!ProvjeriUnos())
                 return;
 
-            string novaRegistracija = txtRegistracija.Text.Trim();
-
-            if (string.IsNullOrWhiteSpace(novaRegistracija))
-            {
-                MessageBox.Show("Registracija automobila je obavezna za spremanje.", "Unos Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                return;
-            }
-
-            DateTime datumRegistracije = dtpDatumRegistracije.Value.Date;
-
             using var ctx = new AutoparkDbContext();
 
-            if (!string.IsNullOrEmpty(originalnaRegistracija))
-            {
-                // Update postojeći auto
-                Entities.Automobil? auto = ctx.Automobili.FirstOrDefault(a => a.Registracija == originalnaRegistracija);
-
-                if (auto == null)
-                {
-                    MessageBox.Show("Originalni automobil nije pronađen za ažuriranje.", "Greška", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    return;
-                }
-
-                // Provjeri da nova registracija ne postoji kod drugog auta
-                if (novaRegistracija != originalnaRegistracija &&
-                    ctx.Automobili.Any(a => a.Registracija == novaRegistracija))
-                {
-                    MessageBox.Show("Unesena nova registracija već postoji u bazi.", "Greška", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    return;
-                }
-
-                // Ažuriranje podataka
-                auto.Registracija = novaRegistracija;
-                auto.IdProizvodjac = int.TryParse(txtIdProizvodjac.Text, out int idProizvodjac) ? idProizvodjac : 0;
-                auto.IdGoriva = int.TryParse(txtIdGoriva.Text, out int idGoriva) ? idGoriva : 0;
-                auto.DatumRegistracije = datumRegistracije;
-                auto.Model = txtModel.Text.Trim();
-                auto.GodinaProizvodnje = dtpGodinaProizvodnje.Value.Year;
-                auto.ccm = !string.IsNullOrWhiteSpace(txtCcm.Text) ? short.Parse(txtCcm.Text.Trim()) : (short?)null;
-                auto.kW = !string.IsNullOrWhiteSpace(txtKw.Text) ? short.Parse(txtKw.Text.Trim()) : (short?)null;
-                auto.Potrosnja = !string.IsNullOrWhiteSpace(txtPotrosnja.Text) ? decimal.Parse(txtPotrosnja.Text.Trim()) : (decimal?)null;
-                auto.Dostupan = cbDostupan.Checked;
-                auto.KilometriNaRegistraciji = decimal.TryParse(txtKilometriNaRegistraciji.Text.Trim(), out decimal km) ? km : 0;
-
-                try
-                {
-                    ctx.SaveChanges();
-                    MessageBox.Show("Automobil je uspješno ažuriran.", "Informacija", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                    ClearForm();
-                    LoadAutomobili();
-                    originalnaRegistracija = null; // Resetiraj nakon update-a
-                }
-                catch (Exception ex)
-                {
-                    MessageBox.Show($"Greška pri ažuriranju: {ex.Message}", "Greška", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                }
-            }
+            if (ent.IdAutomobila == 0)
+                ctx.Automobili.Add(ent);
             else
-            {
-                // Insert novi auto
+                ctx.Automobili.Update(ent);
 
-                if (ctx.Automobili.Any(a => a.Registracija == novaRegistracija))
-                {
-                    MessageBox.Show("Automobil s ovom registracijom već postoji.", "Greška", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    return;
-                }
+            ctx.SaveChanges();
 
-                var noviAuto = new Entities.Automobil
-                {
-                    Registracija = novaRegistracija,
-                    IdProizvodjac = int.TryParse(txtIdProizvodjac.Text, out int idProizvodjac) ? idProizvodjac : 0,
-                    IdGoriva = int.TryParse(txtIdGoriva.Text, out int idGoriva) ? idGoriva : 0,
-                    DatumRegistracije = datumRegistracije,
-                    Model = txtModel.Text.Trim(),
-                    GodinaProizvodnje = dtpGodinaProizvodnje.Value.Year,
-                    ccm = !string.IsNullOrWhiteSpace(txtCcm.Text) ? short.Parse(txtCcm.Text.Trim()) : (short?)null,
-                    kW = !string.IsNullOrWhiteSpace(txtKw.Text) ? short.Parse(txtKw.Text.Trim()) : (short?)null,
-                    Potrosnja = !string.IsNullOrWhiteSpace(txtPotrosnja.Text) ? decimal.Parse(txtPotrosnja.Text.Trim()) : (decimal?)null,
-                    Dostupan = cbDostupan.Checked,
-                    KilometriNaRegistraciji = decimal.TryParse(txtKilometriNaRegistraciji.Text.Trim(), out decimal km) ? km : 0
-                };
+            ClearForm();
+            LoadAutomobili();
 
-                ctx.Automobili.Add(noviAuto);
+            MessageBox.Show("Automobil je uspješno spremljen.", "Informacija", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
-                try
-                {
-                    ctx.SaveChanges();
-                    MessageBox.Show("Automobil je uspješno spremljen.", "Informacija", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                    ClearForm();
-                    LoadAutomobili();
-                }
-                catch (Exception ex)
-                {
-                    MessageBox.Show($"Došlo je do greške prilikom spremanja automobila: {ex.Message}", "Greška", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                }
-            }
-        }
+         }
+     
+        
 
 
         private bool ProvjeriUnos()
@@ -221,35 +154,36 @@ namespace mariadb
 
         private void dgvAutomobili_DoubleClick(object sender, EventArgs e)
         {
-            //if (dgvAutomobili.CurrentRow?.Index == -1) return;
-
             if (dgvAutomobili.CurrentRow == null || dgvAutomobili.CurrentRow.Index < 0)
                 return;
 
-            var registracija = dgvAutomobili.CurrentRow.Cells["dgRegistracija"].Value.ToString();
+            var id = (short)Convert.ToInt32(dgvAutomobili.CurrentRow.Cells["dgIdAutomobila"].Value);
 
             using var ctx = new AutoparkDbContext();
-            var auto = ctx.Automobili.FirstOrDefault(a => a.Registracija == registracija);
+            var automobil = ctx.Automobili.FirstOrDefault(x => x.IdAutomobila == id);
 
-            if (auto != null)
+            if (automobil != null)
             {
-                txtRegistracija.Text = auto.Registracija;
-                txtIdProizvodjac.Text = auto.IdProizvodjac.ToString();
-                txtIdGoriva.Text = auto.IdGoriva.ToString();
-                dtpDatumRegistracije.Value = auto.DatumRegistracije;
-                txtModel.Text = auto.Model;
-                //dtpGodinaProizvodnje.Value = new DateTime(auto.GodinaProizvodnje, 1, 1);
-                txtCcm.Text = auto.ccm?.ToString() ?? "";
-                txtKw.Text = auto.kW?.ToString() ?? "";
-                txtPotrosnja.Text = auto.Potrosnja != 0 ? auto.Potrosnja.ToString() : "";
-                txtKilometriNaRegistraciji.Text = auto.KilometriNaRegistraciji != 0 ? auto.KilometriNaRegistraciji.ToString() : "";
-                cbDostupan.Checked = auto.Dostupan;
+                //DateTime datumRegistracije = dtpDatumRegistracije.Value.Date;
+                //string formatted = datumRegistracije.ToString("yyyy-MM-dd");
 
-                originalnaRegistracija = auto.Registracija; // <- zapamti original jer po ovom PK radiš update
+                ent = automobil;
+                txtRegistracija.Text = ent.Registracija;
+                txtIdProizvodjac.Text = ent.IdProizvodjac.ToString();   
+                txtIdGoriva.Text = ent.IdGoriva.ToString();
+                dtpDatumRegistracije.Value = ent.DatumRegistracije;
+                txtModel.Text = ent.Model;
+                dtpGodinaProizvodnje.Value = new DateTime(ent.GodinaProizvodnje, 1, 1);
+                txtCcm.Text = ent.ccm?.ToString();
+                txtKw.Text = ent.kW?.ToString();
+                txtPotrosnja.Text = ent.Potrosnja?.ToString();
+                cbDostupan.Checked = ent.Dostupan;
+                txtKilometriNaRegistraciji.Text = ent.KilometriNaRegistraciji.ToString();
 
-                btnSave.Text = "Update";
+                btnSave.Text = "Ažuriraj";
                 btnDelete.Enabled = true;
             }
         }
     }
+   
 }
