@@ -238,7 +238,7 @@ namespace mariadb
                 txtIdGoriva.Text = auto.IdGoriva.ToString();
                 dtpDatumRegistracije.Value = auto.DatumRegistracije;
                 txtModel.Text = auto.Model;
-                dtpGodinaProizvodnje.Value = new DateTime(auto.GodinaProizvodnje, 1, 1);
+                //dtpGodinaProizvodnje.Value = new DateTime(auto.GodinaProizvodnje, 1, 1);
                 txtCcm.Text = auto.ccm?.ToString() ?? "";
                 txtKw.Text = auto.kW?.ToString() ?? "";
                 txtPotrosnja.Text = auto.Potrosnja != 0 ? auto.Potrosnja.ToString() : "";

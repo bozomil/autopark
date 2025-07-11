@@ -19,6 +19,13 @@ namespace mariadb.Data
         public DbSet<Rezervacija> Rezervacije { get; set; } = null!;
         public DbSet<Servis> Servisi { get; set; } = null!;
 
+        public AutoparkDbContext() { }
+
+        public AutoparkDbContext(DbContextOptions<AutoparkDbContext> options)
+            : base(options)
+        {
+        }
+
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             if (!optionsBuilder.IsConfigured)
