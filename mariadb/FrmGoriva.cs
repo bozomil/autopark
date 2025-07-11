@@ -14,7 +14,8 @@ namespace mariadb
 {
     public partial class FrmGoriva : Form
     {
-        private Gorivo ctx = new Gorivo();
+        private Gorivo ent = new Gorivo();
+
         public FrmGoriva()
         {
             InitializeComponent();
@@ -30,8 +31,8 @@ namespace mariadb
         {
             dgvGoriva.AutoGenerateColumns = false;
 
-            using var db = new AutoparkDbContext();
-            dgvGoriva.DataSource = db.Goriva.ToList();
+            using var ctx = new AutoparkDbContext();
+            dgvGoriva.DataSource = ctx.Goriva.ToList();
         }
 
         private void ClearForm()
@@ -40,7 +41,7 @@ namespace mariadb
             txtCijenaGoriva.Clear();
             btnSave.Text = "Spremi";
             btnDelete.Enabled = false;
-            ctx = new Gorivo();
+            ent = new Gorivo();
         }
 
         private void btnCancel_Click(object sender, EventArgs e)
@@ -50,7 +51,7 @@ namespace mariadb
 
         private void btnSave_Click(object sender, EventArgs e)
         {
-            ctx.NazivGoriva = txtNazivGoriva.Text.Trim();
+            ent.NazivGoriva = txtNazivGoriva.Text.Trim();
 
             if (!decimal.TryParse(txtCijenaGoriva.Text.Trim(), out decimal cijena))
             {
@@ -58,16 +59,16 @@ namespace mariadb
                 return;
             }
 
-            ctx.CijenaGoriva = cijena;
+            ent.CijenaGoriva = cijena;
 
-            using var db = new AutoparkDbContext();
+            using var ctx = new AutoparkDbContext();
 
-            if (ctx.IdGoriva == 0)
-                db.Goriva.Add(ctx);
+            if (ent.IdGoriva == 0)
+                ctx.Goriva.Add(ent);
             else
-                db.Goriva.Update(ctx);
+                ctx.Goriva.Update(ent);
 
-            db.SaveChanges();
+            ctx.SaveChanges();
 
             ClearForm();
             LoadGoriva();
@@ -77,15 +78,15 @@ namespace mariadb
 
         private void btnDelete_Click(object sender, EventArgs e)
         {
-            if (ctx.IdGoriva == 0)
+            if (ent.IdGoriva == 0)
                 return;
 
             var potvrda = MessageBox.Show("Jeste li sigurni da želite obrisati ovo gorivo?", "Potvrda", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
             if (potvrda != DialogResult.Yes) return;
 
-            using var db = new AutoparkDbContext();
-            db.Goriva.Remove(ctx);
-            db.SaveChanges();
+            using var ctx = new AutoparkDbContext();
+            ctx.Goriva.Remove(ent);
+            ctx.SaveChanges();
 
             ClearForm();
             LoadGoriva();
@@ -98,16 +99,16 @@ namespace mariadb
             if (dgvGoriva.CurrentRow == null || dgvGoriva.CurrentRow.Index < 0)
                 return;
 
-            var id = (short)dgvGoriva.CurrentRow.Cells["dgIdGoriva"].Value;
+            var id = (short)Convert.ToInt32(dgvGoriva.CurrentRow.Cells["dgIdGoriva"].Value);
 
-            using var db = new AutoparkDbContext();
-            var gorivo = db.Goriva.FirstOrDefault(x => x.IdGoriva == id);
+            using var ctx = new AutoparkDbContext();
+            var gorivo = ctx.Goriva.FirstOrDefault(x => x.IdGoriva == id);
 
             if (gorivo != null)
             {
-                ctx = gorivo;
-                txtNazivGoriva.Text = ctx.NazivGoriva;
-                txtCijenaGoriva.Text = ctx.CijenaGoriva.ToString();
+                ent = gorivo;
+                txtNazivGoriva.Text = ent.NazivGoriva;
+                txtCijenaGoriva.Text = ent.CijenaGoriva.ToString();
                 btnSave.Text = "Ažuriraj";
                 btnDelete.Enabled = true;
             }
@@ -115,13 +116,14 @@ namespace mariadb
 
         private void dohvatiToolStripMenuItem_Click(object sender, EventArgs e)
         {
+
             if (dgvGoriva.CurrentRow == null)
                 return;
 
             var id = (short)dgvGoriva.CurrentRow.Cells["dgIdGoriva"].Value;
 
-            using var db = new AutoparkDbContext();
-            var gorivo = db.Goriva.FirstOrDefault(g => g.IdGoriva == id);
+            using var ctx = new AutoparkDbContext();
+            var gorivo = ctx.Goriva.FirstOrDefault(g => g.IdGoriva == id);
 
             if (gorivo == null)
                 return;
@@ -129,7 +131,7 @@ namespace mariadb
             var frmAuto = MdiParent?.MdiChildren.OfType<FrmAutomobili>().FirstOrDefault();
             if (frmAuto != null)
             {
-                frmAuto.SetGorivoId(gorivo.IdGoriva);
+                frmAuto.SetGorivoId((short)gorivo.IdGoriva);
                 this.Close();
             }
             else

@@ -13,12 +13,40 @@ namespace mariadb
 {
     public partial class FrmMdi : Form
     {
+        //-------------------------------------------------------------
+        // Ova svojstva omogućuju pristup meni stavkama iz drugih formi
+        public ToolStripMenuItem AdministrarorMenuItem
+        {
+            get { return administratorToolStripMenuItem; }
+        }
+
+        public ToolStripMenuItem IzvjestajiMenuItem
+        {
+            get { return izvjestajiToolStripMenuItem; }
+        }
+
+        public ToolStripMenuItem KorisnikMenuItem
+        {
+            get { return korisnikToolStripMenuItem; }
+        }
+
+        public ToolStripStatusLabel StatusLabel
+        {
+            get { return tsImePrezime; }
+        }
+
+        public ToolStripStatusLabel StatusLabel2
+        {
+            get { return tsIdKorisnika; }
+        }
+        //-------------------------------------------------------------
+        // Konstruktor
         public FrmMdi()
         {
             InitializeComponent();
             IsMdiContainer = true;
         }
-
+        //-------------------------------------------------------------
 
         private void MDIGlavnaForma_Load(object sender, EventArgs e)
         {
@@ -52,30 +80,17 @@ namespace mariadb
 
         }
 
-        // Add this property to allow external control of the menu item
-        public ToolStripMenuItem AdministrarorMenuItem
+        private void automobiliToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            get { return administratorToolStripMenuItem; }
-        }
+            // 1) Instanciraj child formu
+            var child = new FrmAutomobili();
 
-        public ToolStripMenuItem IzvjestajiMenuItem
-        {
-            get { return izvjestajiToolStripMenuItem; }
-        }
+            // 2) Registriraj je kao MDI-child
+            child.MdiParent = this;
 
-        public ToolStripMenuItem KorisnikMenuItem
-        {
-            get { return korisnikToolStripMenuItem; }
-        }
+            // 3) Prikaži je
+            child.Show();
 
-        public ToolStripStatusLabel StatusLabel
-        {
-            get { return tsImePrezime; }
-        }
-
-        public ToolStripStatusLabel StatusLabel2
-        {
-            get { return tsIdKorisnika; }
         }
     }
 }

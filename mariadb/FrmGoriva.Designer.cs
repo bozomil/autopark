@@ -48,7 +48,6 @@
             // 
             // dgvGoriva
             // 
-            dgvGoriva.AllowUserToAddRows = false;
             dgvGoriva.AllowUserToDeleteRows = false;
             dgvGoriva.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             dgvGoriva.Columns.AddRange(new DataGridViewColumn[] { dgIdGoriva, dgNazivGoriva, dgCijenaGoriva });
@@ -151,7 +150,6 @@
             dgNazivGoriva.HeaderText = "Naziv goriva";
             dgNazivGoriva.Name = "dgNazivGoriva";
             dgNazivGoriva.ReadOnly = true;
-            dgNazivGoriva.Visible = false;
             // 
             // dgCijenaGoriva
             // 
@@ -159,7 +157,6 @@
             dgCijenaGoriva.HeaderText = "Cijena Goriva";
             dgCijenaGoriva.Name = "dgCijenaGoriva";
             dgCijenaGoriva.ReadOnly = true;
-            dgCijenaGoriva.Visible = false;
             // 
             // FrmGoriva
             // 

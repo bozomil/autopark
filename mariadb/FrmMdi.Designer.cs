@@ -30,12 +30,13 @@
         {
             menuStrip = new MenuStrip();
             administratorToolStripMenuItem = new ToolStripMenuItem();
+            gorivaToolStripMenuItem = new ToolStripMenuItem();
+            automobiliToolStripMenuItem = new ToolStripMenuItem();
             korisnikToolStripMenuItem = new ToolStripMenuItem();
             izvjestajiToolStripMenuItem = new ToolStripMenuItem();
             tsImePrezime = new ToolStripStatusLabel();
             stPrikazi = new StatusStrip();
             tsIdKorisnika = new ToolStripStatusLabel();
-            gorivaToolStripMenuItem = new ToolStripMenuItem();
             menuStrip.SuspendLayout();
             stPrikazi.SuspendLayout();
             SuspendLayout();
@@ -46,16 +47,30 @@
             menuStrip.Location = new Point(0, 0);
             menuStrip.Name = "menuStrip";
             menuStrip.Padding = new Padding(7, 2, 0, 2);
-            menuStrip.Size = new Size(737, 24);
+            menuStrip.Size = new Size(1008, 24);
             menuStrip.TabIndex = 0;
             menuStrip.Text = "MenuStrip";
             // 
             // administratorToolStripMenuItem
             // 
-            administratorToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { gorivaToolStripMenuItem });
+            administratorToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { gorivaToolStripMenuItem, automobiliToolStripMenuItem });
             administratorToolStripMenuItem.Name = "administratorToolStripMenuItem";
             administratorToolStripMenuItem.Size = new Size(92, 20);
             administratorToolStripMenuItem.Text = "Administrator";
+            // 
+            // gorivaToolStripMenuItem
+            // 
+            gorivaToolStripMenuItem.Name = "gorivaToolStripMenuItem";
+            gorivaToolStripMenuItem.Size = new Size(180, 22);
+            gorivaToolStripMenuItem.Text = "Goriva";
+            gorivaToolStripMenuItem.Click += gorivaToolStripMenuItem_Click;
+            // 
+            // automobiliToolStripMenuItem
+            // 
+            automobiliToolStripMenuItem.Name = "automobiliToolStripMenuItem";
+            automobiliToolStripMenuItem.Size = new Size(180, 22);
+            automobiliToolStripMenuItem.Text = "Automobili";
+            automobiliToolStripMenuItem.Click += automobiliToolStripMenuItem_Click;
             // 
             // korisnikToolStripMenuItem
             // 
@@ -78,10 +93,10 @@
             // stPrikazi
             // 
             stPrikazi.Items.AddRange(new ToolStripItem[] { tsImePrezime, tsIdKorisnika });
-            stPrikazi.Location = new Point(0, 501);
+            stPrikazi.Location = new Point(0, 699);
             stPrikazi.Name = "stPrikazi";
             stPrikazi.Padding = new Padding(1, 0, 16, 0);
-            stPrikazi.Size = new Size(737, 22);
+            stPrikazi.Size = new Size(1008, 22);
             stPrikazi.TabIndex = 2;
             stPrikazi.Text = "StatusStrip";
             // 
@@ -91,25 +106,18 @@
             tsIdKorisnika.Size = new Size(0, 17);
             tsIdKorisnika.Visible = false;
             // 
-            // gorivaToolStripMenuItem
-            // 
-            gorivaToolStripMenuItem.Name = "gorivaToolStripMenuItem";
-            gorivaToolStripMenuItem.Size = new Size(180, 22);
-            gorivaToolStripMenuItem.Text = "Goriva";
-            gorivaToolStripMenuItem.Click += gorivaToolStripMenuItem_Click;
-            // 
             // FrmMdi
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(737, 523);
+            ClientSize = new Size(1008, 721);
             Controls.Add(stPrikazi);
             Controls.Add(menuStrip);
             IsMdiContainer = true;
             MainMenuStrip = menuStrip;
             Margin = new Padding(4, 3, 4, 3);
             Name = "FrmMdi";
-            Text = "MDIGlavnaForma";
+            Text = "Autopark";
             Load += MDIGlavnaForma_Load;
             Shown += FrmMdi_Shown;
             menuStrip.ResumeLayout(false);
@@ -131,6 +139,7 @@
         private StatusStrip stPrikazi;
         private ToolStripStatusLabel tsIdKorisnika;
         private ToolStripMenuItem gorivaToolStripMenuItem;
+        private ToolStripMenuItem automobiliToolStripMenuItem;
     }
 }
 

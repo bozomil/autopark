@@ -25,7 +25,7 @@ namespace mariadb.Entities
         [StringLength(100)]
         public string Model { get; set; }
 
-        public int? GodinaProizvodnje { get; set; }
+        public int GodinaProizvodnje { get; set; }
         public int? ccm { get; set; }
         public int? kW { get; set; }
 
