@@ -42,7 +42,7 @@ namespace mariadb.Entities
 
         public bool Dostupan { get; set; } = true;
 
-        [Column(TypeName = "decimal(10,1)")]
+        [Column(TypeName = "decimal(10,2)")]
         public decimal KilometriNaRegistraciji { get; set; } = 0;
 
         public ICollection<Rezervacija> Rezervacije { get; set; } = new HashSet<Rezervacija>();

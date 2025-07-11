@@ -17,6 +17,7 @@ namespace mariadb.Entities
         public string NazivGoriva { get; set; } = string.Empty;
 
         [Required]
+        [Column(TypeName = "decimal(5,1)")]
         public decimal CijenaGoriva { get; set; }
 
         public ICollection<Automobil> Automobili { get; set; } = new HashSet<Automobil>();
