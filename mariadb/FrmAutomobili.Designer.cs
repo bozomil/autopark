@@ -65,7 +65,6 @@
             btnDelete = new Button();
             btnSave = new Button();
             backgroundWorker1 = new System.ComponentModel.BackgroundWorker();
-            btnUpdate = new Button();
             ((System.ComponentModel.ISupportInitialize)dgvAutomobili).BeginInit();
             SuspendLayout();
             // 
@@ -361,22 +360,11 @@
             btnSave.UseVisualStyleBackColor = true;
             btnSave.Click += btnSave_Click;
             // 
-            // btnUpdate
-            // 
-            btnUpdate.Location = new Point(280, 504);
-            btnUpdate.Name = "btnUpdate";
-            btnUpdate.Size = new Size(75, 23);
-            btnUpdate.TabIndex = 25;
-            btnUpdate.Text = "Update";
-            btnUpdate.UseVisualStyleBackColor = true;
-            btnUpdate.Click += btnUpdate_Click;
-            // 
             // FrmAutomobili
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(784, 561);
-            Controls.Add(btnUpdate);
             Controls.Add(btnCancel);
             Controls.Add(btnDelete);
             Controls.Add(btnSave);
@@ -439,7 +427,6 @@
         private Button btnDelete;
         private Button btnSave;
         private System.ComponentModel.BackgroundWorker backgroundWorker1;
-        private Button btnUpdate;
         private DataGridViewTextBoxColumn dgRegistracija;
         private DataGridViewTextBoxColumn dgIdProizvodjac;
         private DataGridViewTextBoxColumn dgModel;

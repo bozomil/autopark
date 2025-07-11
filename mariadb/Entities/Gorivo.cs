@@ -1,6 +1,8 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using Microsoft.EntityFrameworkCore;
 
 namespace mariadb.Entities
 {
@@ -11,13 +13,12 @@ namespace mariadb.Entities
         public int IdGoriva { get; set; }
 
         [Required]
-        [StringLength(50)]
-        public string NazivGoriva { get; set; }
+        [MaxLength(50)]
+        public string NazivGoriva { get; set; } = string.Empty;
 
         [Required]
-        [Column(TypeName = "decimal(6,2)")]
         public decimal CijenaGoriva { get; set; }
 
-        public virtual ICollection<Automobil> Automobili { get; set; }
+        public ICollection<Automobil> Automobili { get; set; } = new HashSet<Automobil>();
     }
 }

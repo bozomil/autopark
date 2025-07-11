@@ -1,6 +1,8 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using Microsoft.EntityFrameworkCore;
 
 namespace mariadb.Entities
 {
@@ -11,24 +13,20 @@ namespace mariadb.Entities
         public int IdKorisnika { get; set; }
 
         [Required]
-        [StringLength(50)]
-        public string KorisnickoIme { get; set; }
+        [MaxLength(50)]
+        public string KorisnickoIme { get; set; } = string.Empty;
 
         [Required]
-        [StringLength(100)]
-        public string Lozinka { get; set; }
+        public string Lozinka { get; set; } = string.Empty;
+
+        public bool JeAdmin { get; set; } = false;
 
         [Required]
-        public bool JeAdmin { get; set; }
+        public string ImePrezime { get; set; } = string.Empty;
 
         [Required]
-        [StringLength(100)]
-        public string ImePrezime { get; set; }
+        public string Email { get; set; } = string.Empty;
 
-        [Required]
-        [StringLength(100)]
-        public string Email { get; set; }
-
-        public virtual ICollection<Rezervacija> Rezervacije { get; set; }
+        public ICollection<Rezervacija> Rezervacije { get; set; } = new HashSet<Rezervacija>();
     }
 }

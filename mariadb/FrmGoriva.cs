@@ -74,6 +74,7 @@ namespace mariadb
             LoadGoriva();
 
             MessageBox.Show("Gorivo je uspješno spremljeno.", "Informacija", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
         }
 
         private void btnDelete_Click(object sender, EventArgs e)

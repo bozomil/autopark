@@ -10,36 +10,29 @@ namespace mariadb.Entities
         [Key]
         public int IdRezervacije { get; set; }
 
-        [Required]
+        [ForeignKey(nameof(Korisnik))]
         public int IdKorisnika { get; set; }
+        public Korisnik Korisnik { get; set; } = null!;
 
-        [Required]
-        [StringLength(20)]
-        public string Registracija { get; set; }
+        [ForeignKey(nameof(Automobil))]
+        public int IdAutomobila { get; set; }
+        public Automobil Automobil { get; set; } = null!;
 
-        [Required]
+        [Column(TypeName = "date")]
         public DateTime DatumOdlaska { get; set; }
 
-        [Required]
+        [Column(TypeName = "date")]
         public DateTime DatumDolaska { get; set; }
 
         [Required]
-        [StringLength(100)]
-        public string Mjesto { get; set; }
+        [MaxLength(100)]
+        public string Mjesto { get; set; } = string.Empty;
 
-        [Required]
         [Column(TypeName = "decimal(8,2)")]
         public decimal Udaljenost { get; set; }
 
-        public string RazlogOpis { get; set; }
+        public string? RazlogOpis { get; set; }
 
-        [Required]
         public bool Odobreno { get; set; } = false;
-
-        [ForeignKey("IdKorisnika")]
-        public virtual Korisnik Korisnik { get; set; }
-
-        [ForeignKey("Registracija")]
-        public virtual Automobil Automobil { get; set; }
     }
 }

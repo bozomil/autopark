@@ -10,21 +10,17 @@ namespace mariadb.Entities
         [Key]
         public int IdServisa { get; set; }
 
-        [Required]
-        [StringLength(20)]
-        public string Registracija { get; set; }
+        [ForeignKey(nameof(Automobil))]
+        public int IdAutomobila { get; set; }
+        public Automobil Automobil { get; set; } = null!;
 
-        [Required]
+        [Column(TypeName = "date")]
         public DateTime DatumServisa { get; set; }
 
-        [Required]
         [Column(TypeName = "decimal(8,2)")]
         public decimal CijenaServisa { get; set; }
 
-        [StringLength(255)]
-        public string OpisServisa { get; set; }
-
-        [ForeignKey("Registracija")]
-        public virtual Automobil Automobil { get; set; }
+        [MaxLength(255)]
+        public string? OpisServisa { get; set; }
     }
 }

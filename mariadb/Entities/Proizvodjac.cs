@@ -1,6 +1,8 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using Microsoft.EntityFrameworkCore;
 
 namespace mariadb.Entities
 {
@@ -11,9 +13,9 @@ namespace mariadb.Entities
         public int IdProizvodjac { get; set; }
 
         [Required]
-        [StringLength(100)]
-        public string NazivProizvodjaca { get; set; }
+        [MaxLength(100)]
+        public string NazivProizvodjaca { get; set; } = string.Empty;
 
-        public virtual ICollection<Automobil> Automobili { get; set; }
+        public ICollection<Automobil> Automobili { get; set; } = new HashSet<Automobil>();
     }
 }
