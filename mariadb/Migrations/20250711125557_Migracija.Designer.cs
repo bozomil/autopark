@@ -12,8 +12,8 @@ using mariadb.Data;
 namespace mariadb.Migrations
 {
     [DbContext(typeof(AutoparkDbContext))]
-    [Migration("20250711115426_NovaMigracija")]
-    partial class NovaMigracija
+    [Migration("20250711125557_Migracija")]
+    partial class Migracija
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -88,7 +88,7 @@ namespace mariadb.Migrations
                     MySqlPropertyBuilderExtensions.UseMySqlIdentityColumn(b.Property<int>("IdGoriva"));
 
                     b.Property<decimal>("CijenaGoriva")
-                        .HasColumnType("decimal(5,1)");
+                        .HasColumnType("decimal(5,2)");
 
                     b.Property<string>("NazivGoriva")
                         .IsRequired()

@@ -7,7 +7,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace mariadb.Migrations
 {
     /// <inheritdoc />
-    public partial class InicijalnaMigracija : Migration
+    public partial class Migracija : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -23,7 +23,7 @@ namespace mariadb.Migrations
                         .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
                     NazivGoriva = table.Column<string>(type: "varchar(50)", maxLength: 50, nullable: false)
                         .Annotation("MySql:CharSet", "utf8mb4"),
-                    CijenaGoriva = table.Column<decimal>(type: "decimal(65,30)", nullable: false)
+                    CijenaGoriva = table.Column<decimal>(type: "decimal(5,2)", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -105,7 +105,7 @@ namespace mariadb.Migrations
                     kW = table.Column<int>(type: "int", nullable: true),
                     Potrosnja = table.Column<decimal>(type: "decimal(4,2)", nullable: true),
                     Dostupan = table.Column<bool>(type: "tinyint(1)", nullable: false),
-                    KilometriNaRegistraciji = table.Column<decimal>(type: "decimal(10,1)", nullable: false)
+                    KilometriNaRegistraciji = table.Column<decimal>(type: "decimal(10,2)", nullable: false)
                 },
                 constraints: table =>
                 {

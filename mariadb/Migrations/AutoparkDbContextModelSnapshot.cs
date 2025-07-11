@@ -85,7 +85,7 @@ namespace mariadb.Migrations
                     MySqlPropertyBuilderExtensions.UseMySqlIdentityColumn(b.Property<int>("IdGoriva"));
 
                     b.Property<decimal>("CijenaGoriva")
-                        .HasColumnType("decimal(5,1)");
+                        .HasColumnType("decimal(5,2)");
 
                     b.Property<string>("NazivGoriva")
                         .IsRequired()
